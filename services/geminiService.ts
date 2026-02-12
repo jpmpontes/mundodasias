@@ -8,15 +8,13 @@ export const getLiveAIData = async (query: string): Promise<SearchResult> => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `Forneça informações atualizadas sobre a seguinte IA ou tendência de IA: ${query}. 
-      Inclua: utilidade principal, versões atuais e preços estimados. 
-      Responda em Português do Brasil de forma concisa e amigável.`,
+      contents: `Forneça informações atualizadas sobre: ${query}. Responda em Português de forma concisa.`,
       config: {
         tools: [{ googleSearch: {} }],
       },
     });
 
-    const answer = response.text || "Não foi possível obter uma resposta no momento.";
+    const answer = response.text || "Sem resposta.";
     const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
     
     const sources = chunks
@@ -26,15 +24,9 @@ export const getLiveAIData = async (query: string): Promise<SearchResult> => {
         uri: chunk.web?.uri || "#"
       }));
 
-    return {
-      answer,
-      sources: sources.slice(0, 5) // Limit to top 5 sources
-    };
+    return { answer, sources: sources.slice(0, 5) };
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    return {
-      answer: "Ocorreu um erro ao consultar as informações mais recentes. Por favor, tente novamente.",
-      sources: []
-    };
+    console.error(error);
+    return { answer: "Erro ao consultar a rede.", sources: [] };
   }
 };

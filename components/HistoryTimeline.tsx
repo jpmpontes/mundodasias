@@ -1,37 +1,24 @@
 
 import React from 'react';
-import { AIHistoryEvent } from '../types';
 import { HISTORY_DATA } from '../constants';
 
-const HistoryTimeline: React.FC = () => {
-  return (
-    <div className="py-12 px-4 max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold mb-12 text-center text-slate-800">Linha do Tempo: A Evolução da Inteligência</h2>
-      <div className="relative border-l-2 border-indigo-200 ml-4 md:ml-0 md:left-1/2">
-        {HISTORY_DATA.map((event, index) => (
-          <div key={index} className={`mb-12 relative flex flex-col md:flex-row items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-            {/* Dot */}
-            <div className="absolute left-[-9px] md:left-1/2 md:translate-x-[-50%] w-4 h-4 rounded-full bg-indigo-500 border-4 border-white shadow-sm z-10"></div>
-            
-            {/* Content Card */}
-            <div className={`w-full md:w-[45%] p-6 rounded-2xl bg-white shadow-sm border border-slate-100 hover:shadow-md transition-shadow ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-              <span className="text-indigo-600 font-bold text-sm tracking-widest uppercase">{event.year}</span>
-              <h3 className="text-xl font-bold text-slate-800 mt-1">{event.title}</h3>
-              <p className="text-slate-600 mt-2 text-sm leading-relaxed">{event.description}</p>
-              <div className="mt-3">
-                <span className={`text-[10px] px-2 py-1 rounded-full font-semibold uppercase tracking-wider ${
-                  event.category === 'Milestone' ? 'bg-amber-100 text-amber-700' : 
-                  event.category === 'Technology' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'
-                }`}>
-                  {event.category}
-                </span>
-              </div>
-            </div>
+const HistoryTimeline: React.FC = () => (
+  <div className="max-w-4xl mx-auto px-6">
+    <h2 className="text-3xl font-bold mb-12 text-center">A Jornada da IA</h2>
+    <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+      {HISTORY_DATA.map((item, idx) => (
+        <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-indigo-500 text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+            <span className="text-[10px] font-bold">{item.year}</span>
           </div>
-        ))}
-      </div>
+          <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-slate-200 bg-white shadow">
+            <h3 className="font-bold text-slate-800">{item.title}</h3>
+            <p className="text-sm text-slate-600">{item.description}</p>
+          </div>
+        </div>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export default HistoryTimeline;
