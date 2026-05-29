@@ -56,21 +56,26 @@ O core publica eventos que são consumidos por serviços com capacidades muito d
 
 ### **Diagrama --- Estratégia x Escalabilidade**
 
-
-[Usuário (Front)]       
+```
+[Usuário (Front)]      
+| 
 ▼ 
-requisições HTTP
+|requisições HTTP
+|
 ▼ 
 ┌───────────┴───────────┐
 │ Azure Container   │
 │ Apps (Core)       │
 └───────────▲───────────┘
+|
 ▼ 
 conexões
+|
 ┌───────────┴───────────┐
 │ Banco de Dados Azure │
 │ (pool de conexões)  │
 └───────────▲───────────┘
+|
 ▼   
 │ Cache leve Sessão/Estado  │ Réplicas de leitura  │
 
